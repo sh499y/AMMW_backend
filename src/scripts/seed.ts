@@ -68,7 +68,7 @@ export default async function seedDemoData({ container }: ExecArgs) {
   logger.info("Seeding store data...");
   const [store] = await storeModuleService.listStores();
   let defaultSalesChannel = await salesChannelModuleService.listSalesChannels({
-    name: "Default Sales Channel",
+    name: "Domyślny kanał sprzedaży",
   });
 
   if (!defaultSalesChannel.length) {
@@ -79,7 +79,7 @@ export default async function seedDemoData({ container }: ExecArgs) {
       input: {
         salesChannelsData: [
           {
-            name: "Default Sales Channel",
+            name: "Domyślny kanał sprzedaży",
           },
         ],
       },
@@ -112,7 +112,7 @@ export default async function seedDemoData({ container }: ExecArgs) {
     input: {
       regions: [
         {
-          name: "Europe",
+          name: "Europa",
           currency_code: "pln",
           countries,
           payment_providers: ["pp_system_default"],
@@ -139,7 +139,7 @@ export default async function seedDemoData({ container }: ExecArgs) {
     input: {
       locations: [
         {
-          name: "European Warehouse",
+          name: "Magazyn Europejski",
           address: {
             city: "Copenhagen",
             country_code: "DK",
@@ -181,7 +181,7 @@ export default async function seedDemoData({ container }: ExecArgs) {
         input: {
           data: [
             {
-              name: "Default Shipping Profile",
+              name: "Domyślny profil wysyłki",
               type: "default",
             },
           ],
@@ -191,11 +191,11 @@ export default async function seedDemoData({ container }: ExecArgs) {
   }
 
   const fulfillmentSet = await fulfillmentModuleService.createFulfillmentSets({
-    name: "European Warehouse delivery",
+    name: "Dostawa z Magazynu Europejskiego",
     type: "shipping",
     service_zones: [
       {
-        name: "Europe",
+        name: "Europa",
         geo_zones: [
           {
             country_code: "pl",
@@ -218,14 +218,14 @@ export default async function seedDemoData({ container }: ExecArgs) {
   await createShippingOptionsWorkflow(container).run({
     input: [
       {
-        name: "Standard Shipping",
+        name: "Wysyłka standardowa",
         price_type: "flat",
         provider_id: "manual_manual",
         service_zone_id: fulfillmentSet.service_zones[0].id,
         shipping_profile_id: shippingProfile.id,
         type: {
-          label: "Standard",
-          description: "Ship in 2-3 days.",
+          label: "Standardowa",
+          description: "Wysyłka w 2-3 dni robocze.",
           code: "standard",
         },
         prices: [
@@ -252,14 +252,14 @@ export default async function seedDemoData({ container }: ExecArgs) {
         ],
       },
       {
-        name: "Express Shipping",
+        name: "Wysyłka ekspresowa",
         price_type: "flat",
         provider_id: "manual_manual",
         service_zone_id: fulfillmentSet.service_zones[0].id,
         shipping_profile_id: shippingProfile.id,
         type: {
-          label: "Express",
-          description: "Ship in 24 hours.",
+          label: "Ekspresowa",
+          description: "Wysyłka w ciągu 24 godzin.",
           code: "express",
         },
         prices: [
