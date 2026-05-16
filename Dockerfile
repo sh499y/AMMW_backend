@@ -16,6 +16,9 @@ COPY package.json package-lock.json ./
 RUN npm ci --omit=dev
 
 COPY --from=builder /app/.medusa ./.medusa
+COPY medusa-config.ts ./
+COPY src ./src
+COPY tsconfig.json ./
 
 EXPOSE 9000
 
