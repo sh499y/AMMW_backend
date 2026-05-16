@@ -7,10 +7,9 @@ RUN npm ci
 
 COPY . .
 
-ARG MEDUSA_BACKEND_URL
-ENV MEDUSA_BACKEND_URL=${MEDUSA_BACKEND_URL}
+ENV NODE_ENV=production
 
-RUN npm run build && echo "=== Admin build check ===" && ls -la .medusa/server/public/admin/
+RUN npm run build
 
 EXPOSE 9000
 
