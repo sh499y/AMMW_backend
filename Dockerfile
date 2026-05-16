@@ -6,7 +6,11 @@ COPY package.json package-lock.json ./
 RUN npm ci
 
 COPY . .
-RUN npm run build && ls -la .medusa/server/public/admin/
+
+ARG MEDUSA_BACKEND_URL
+ENV MEDUSA_BACKEND_URL=${MEDUSA_BACKEND_URL}
+
+RUN npm run build && echo "=== Admin build check ===" && ls -la .medusa/server/public/admin/
 
 EXPOSE 9000
 
